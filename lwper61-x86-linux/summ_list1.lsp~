@@ -1,6 +1,0 @@
-(defun sumlist(s)(if(null s) 0 (+ (first s) (sumlist(rest s)))))
-
-(defun mylength(s) (if(null s) 0 (1+ (mylength(rest s)))))
-
-(defun myf(s)(cond ((null s) 0) ((and (numberp (first s)) (> (first s) 0)) (1+ (myf(rest s)))) (t (myf(rest s))))
-
