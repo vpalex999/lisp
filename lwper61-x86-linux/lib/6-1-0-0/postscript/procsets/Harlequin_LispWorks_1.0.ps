@@ -1,0 +1,163 @@
+%%BeginResource: procset Harlequin_LispWorks 1.0 1
+%%Copyright: Copyright (c) 1987--2012 LispWorks Ltd. All rights reserved.
+%Misc utilities
+%min   a b | min
+/min {2 copy le {pop} {exch pop} ifelse} def
+/max {2 copy ge {pop} {exch pop} ifelse} def
+%ifdefined   name trueproc falseproc | -
+/ifdefined {3 2 roll where {pop exch} if exch pop exec} def
+%cdef (conditional def)   name1 name2 value | -
+%  Used for defining emulations.
+%  If name2 is defined, name1 becomes a synonym, otherwise the
+%  value is used.
+/cdef {exch dup 
+        { %name1 value name2
+          exch pop load }
+        { pop }
+       ifdefined def} def
+%Feature (evaluate feature safely)   proc | -
+/Feature {countdictstack mark 3 2 roll stopped cleartomark
+          countdictstack exch sub dup 0 gt {{end} repeat} {pop} ifelse} def
+%L2 (true if level 2 or greater)   - | bool
+/L2 /languagelevel
+    {languagelevel 2 ge}
+    {false} ifdefined def
+
+%Emulations
+/SelectFont /selectfont 
+  {exch findfont exch dup type /arraytype eq 
+    {makefont} {scalefont} ifelse setfont} cdef
+
+/SetRGBColor /setrgbcolor 
+  {3 2 roll .3 mul 3 2 roll .59 mul 3 2 roll .11 nul} cdef
+
+%Page transform
+%Notional imagable area: ix1 iy1 ix2 iy2    
+% where (ix1,iy1) is TOP left;  (iy1,iy2) is BOTTOM right.
+%User coordinate mapping on to this: x y w h
+%Note user y axis is +ve towards bottom of page
+%translate ix1 iy1
+%scale (ix2-ix1)/w (iy2-iy1)/h
+%translate -x -y
+%SIAcache contains [ (ix2-ix1) (iy2-iy1) ix1 iy1 ]
+/SIAcache 4 array def
+%LoadIA   - | (ix2-ix1) (iy2-iy1) ix1 iy1
+/LoadIA {SIAcache aload pop} def
+%SIA (set imageable area)   ix1 iy1 ix2 iy2 | -
+/SIA {exch 3 index sub exch 2 index sub 4 2 roll SIAcache astore pop} def
+%SPTcache contains the last SPT matrix
+/SPTcache matrix def
+%Start page transform / end page transform (may not be nested)
+%SPT (start page transform)   x y w h clip? | -
+/SPT {gsave {LoadIA Rectangle clip newpath} if LoadIA translate
+      %x y w h (ix2-ix1) (iy2-iy1)
+      exch 3 index div exch 2 index div scale pop pop
+      %x y
+      neg exch neg exch translate SPTcache currentmatrix pop} def
+%EPT (end page transform)   - | -
+/EPT /grestore load def
+% SM (set matrix)  matrix | -
+/SM {SPTcache setmatrix concat} def
+%SST (stroke scale thickness flag)
+/SST false def
+%ST ( scale thickness )  flag | -
+/ST { /SST exch def } def
+%S  ( stroke )  - | -
+/S { SST { stroke } { matrix currentmatrix SPTcache setmatrix stroke setmatrix } ifelse } def
+
+%Drawing functions
+%  On entry:  Path must be empty, but a current point may exist
+%  On exit:   Path empty;  Graphics state preserved except for
+%             current point
+%DL (draw line)   x2 y2 x1 y1 | -
+/DL {moveto lineto S} def
+%Rectangle (not closed)   w h x y | -
+/Rectangle {moveto exch dup 0 rlineto exch 0 exch rlineto neg 0 rlineto} def
+%DR (draw rectangle)   w h x y | -
+/DR {Rectangle closepath S} def
+%FR (fill rectangle)   w h x y | -
+/FR {Rectangle fill} def
+%InitArc (note gsave)   width height x y | -
+/InitArc {exch 3 index 2 div add exch 2 index 2 div add
+          %w h xc yc  - where xc,yc is centre of rectangle
+          translate scale} def
+%Ellipse   w h x y | -
+/Ellipse {newpath InitArc 0 0 0.5 0 360 arc} def
+%DE (draw ellipse)   w h x y | -
+/DE {save matrix currentmatrix 6 2 roll Ellipse 
+     setmatrix closepath S restore} def
+%FE (fill ellipse)   w h x y | -
+/FE {gsave Ellipse fill grestore} def
+%Arc   start sweep w h x y | -
+/Arc {InitArc 1 index add 360 exch sub exch 360 exch sub 0 0 0.5 5 3 roll
+      %0 0 1 start end
+      arc} def
+%DA (draw arc)   start sweep w h x y | -
+/DA {save matrix currentmatrix 8 2 roll newpath Arc 
+     setmatrix S restore} def
+%FA (fill arc)   start sweep w h x y | -
+/FA {gsave 0 0 moveto Arc fill grestore} def
+%DS (draw string)   str x y | -
+/DS {moveto show} def
+%DBS (draw block string)   str x y | -
+/DBS {moveto dup stringwidth pop currentpoint FDH
+      %string width xleft ybaseline descent height
+      3 1 roll add
+      %string width xleft height ybottom
+      3 2 roll exch gsave SetBackgroundColor FR grestore
+      show} def
+
+%Misc drawing synonyms
+/MT /moveto load def
+/LT /lineto load def
+/CP /closepath load def
+/F /fill load def
+/EF /eofill load def
+
+%SD/Sd (set dash)
+%Usage:  SD a1 a2 .. an Sd
+%SD   - | save mark
+/SD {save [} def
+%Sd   mark a1 a2 .. an | -
+/Sd {] 0 setdash} def
+%ED (end dash)   save | -
+/ED /restore load def
+
+%Graphics state
+%SFg (set foreground)   r g b | -
+/SFg /SetRGBColor load def
+%Background array holds background color
+/Background [ 0 0 0 ] def
+%SBg (set background)   r g b | -
+/SBg {Background astore pop} def
+%SetBackgroundColor   - | -
+/SetBackgroundColor {Background aload pop SetRGBColor} def
+%SF (set font)   name scale | -
+%This creates inverted fonts, since our page transform inverts
+/SF {dup neg matrix scale SelectFont} def
+%SLW (set line width)   width | -
+/SLW /setlinewidth load def
+%SC (set clipping rectangle)   w h x y| -
+/SC {gsave Rectangle clip newpath} def
+%RC (restore clipping)   - | -
+/RC /grestore load def
+%FDHcache (unknown iff second element null)
+/FDHcache 2 array def
+%FDHS (font descent&height store - for blocked text)   descent height | -
+/FDHS {FDHcache astore pop} def
+%FDHnull (set descent and height to unknown)  - | -
+/FDHnull {FDHcache 1 null put} def
+%FDH (get font descent&height, descent is -ve)
+%   - | descent height
+% If the values were not known when the PS was generated, GetFDH must
+% be defined to (attempt to) compute them.
+/FDH {FDHcache aload pop dup null eq 
+       {pop pop GetFDH 2 copy FDHS}
+      if} def
+
+%Page output
+%SP (start page)
+/SP {save 1 1 1 SBg FDHnull} def
+%EP (end page)
+/EP {showpage restore} def
+%%EndResource

@@ -1,0 +1,37 @@
+### -*- rcs-header: "$Header: /hope/lwhope1-cam/hope.0/compound/23/LISPexamples/RCS/gtk:gtkrc-break-gestures,v 1.2.1.1 2011/08/24 13:26:19 davef Exp $" -*-
+
+### #<harlequin copyright marker>
+
+### Defining a break gesture. 
+
+### The for below define Control-! as a break gesture.
+
+### LispWorks looks for all bindings in "LispWorks-Global". 
+### For break gestures, it uses all binding with the 'signal name'
+### being "Break-Gesture".  The key that is bound ("b" below) is ignored. 
+
+### The 'argument' of "Break-Gesture" is the name of break gesture,
+### using Lisp syntax of characters (it calls sys:coerce-to-gesture-spec
+### on the string).
+
+### Apart from strings that sys:coerce-to-gesture-spec recognizes, 
+### there are two special strings that can be used as the name:
+
+### <clear>  -- clear break gesture. Later signals (in 
+###         the same form or later form) can add gestures, but previous
+###         ones are eliminated. 
+### <default> -- Add the default list, which can be modified and queried
+###               inside lisp by capi:set-interactive-break-gestures. 
+
+###  Break gestures are set up at the time an interface
+### is created, so changing them will not affect existing windows. 
+
+### There can be more than one 'bind' sub-form (i.e. 'bind' followed by a string
+### followed by curly brackets) in each 'binding', and there can more than 
+### one signal-spec (a string followed by round brackets)  for each 'bind'. 
+
+### There can also be more than one 'binding' for the same binding name.
+
+binding "LispWorks-Global" {
+   bind "b" { "Break-Gesture"("Control-!") }
+  }

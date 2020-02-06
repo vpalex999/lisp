@@ -1,0 +1,39 @@
+### -*- rcs-header: "$Header: /hope/lwhope1-cam/hope.0/compound/23/LISPexamples/RCS/gtk:gtkrc-font,v 1.2.2.1 2011/08/24 13:26:19 davef Exp $" -*-
+
+### #<harlequin copyright marker>
+
+### Examples of how to change the font used by the LispWorks IDE.
+### These can be added to the file ~/.gtkrc-2.0 or some other gtkrc
+### file in your configuration.
+
+### For available fonts, run fc-list.
+
+### The names of all LispWorks IDE interfaces are prefixed by
+### "Lispworks.". By prefixing all the paths by Lispworks., these
+### declarations ensure that they match widgets only inside the
+### LispWorks IDE.
+
+
+### This shows how to change the font for all panes in LispWorks,
+### except for any editor pane whose font is overridden by the
+### settings in Preferences > Environment > Styles in the LispWorks
+### IDE.
+
+style "LispWorks-font"
+  {
+  	font_name="Courier 12"
+  }
+widget "Lispworks.*" style "LispWorks-font"
+
+
+### This shows how to change the font for all buttons in LispWorks.
+### The .* is needed at the end because GTK+ buttons contain a
+### separate label widget, which is where the actual font resides.
+
+style "LispWorks-button-font"
+  {
+  	font_name="Courier 12"
+  }
+widget "Lispworks.*.push-button.*" style "LispWorks-button-font"
+widget "Lispworks.*.button.*" style "LispWorks-button-font"
+

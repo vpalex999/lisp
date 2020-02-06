@@ -1,0 +1,24 @@
+#| Configuration file for choosing which Motif library to use.
+
+NOTE: THIS FILE IS NO LONGER USED BY LISPWORKS IN THE DEFAULT CONFIGURATION.
+
+This file should contain a single Lisp plist of items with keys as follows:
+
+:detect-version
+  A plist for detecting which version of Motif is installed.  The keys of this
+  plist are filenames and the values are the symbols :motif or :lesstif.  If
+  exactly one of the files exists, that version of Motif will be used.  If
+  more than one of the files exists, the value of the :prefer-version item is
+  used to choose (or the the first one is used if :prefer-version is not
+  given).
+
+:prefer-version
+  If the :detect-version item is missing then this item provides the default
+  version to use.  This item is also used when more than one file exists in
+  the :detect-version list.
+
+|#
+
+(:detect-version (("/usr/X11R6/lib/libXm.so.3" :motif))
+ :prefer-version :motif
+ )

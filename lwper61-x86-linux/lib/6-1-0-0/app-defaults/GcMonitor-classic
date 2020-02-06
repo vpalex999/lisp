@@ -1,0 +1,29 @@
+! -*- rcs-header: "$Header: /hope/lwhope1-cam/hope.0/compound/62/LISPcapi-xm-lib-app-defaults/RCS/GcMonitor-classic,v 1.3.16.1 2011/08/24 13:25:48 davef Exp $" -*-
+
+! Copyright (c) 1987--2012 LispWorks Ltd. All rights reserved.
+
+! ----------------------------------------------------------------------
+!
+! Resource description for Lispworks GC Monitor.
+!
+! ----------------------------------------------------------------------
+
+*foreground:						#000080
+*background:						#b3e6fd
+
+! Uncomment out the following line if you want shadow colors to look more like they did in 3.2
+!*lightThreshold:					95
+
+! For the control PushButton's and the Label widget used for the status display.
+*XmLabel.fontList:					*times-bold-r-normal--14*
+*XmPushButton.fontList:					*times-bold-r-normal--14*
+
+! Buttons and the status area can be configured with the following names:
+!
+! Pushbutton:
+!   break
+!   interrupt
+!   quit
+!
+! Label:
+!   status

@@ -1,0 +1,442 @@
+! -*- rcs-header: "$Header: /hope/lwhope1-cam/hope.0/compound/62/LISPcapi-xm-lib-app-defaults/RCS/Lispworks,v 1.63.1.1 2011/08/24 13:25:48 davef Exp $" -*-
+
+! Copyright (c) 1987--2012 LispWorks Ltd. All rights reserved.
+
+! ======================================================================
+!
+! Lispworks resources.
+!
+! ======================================================================
+
+! This file contains the default resources built into the LispWorks IDE.
+
+! As of version 5 the fonts and colors are based on those contributed by:
+! Author: Stéphane Perrot, 2004-2005 <stephane DOT perrot AT c-s DOT fr>
+! The LispWorks 4 fonts and colors are available in the file Lispworks-classic.
+
+! The principles in Stéphane's scheme are the following :
+
+! The main font used is :   -b&h-lucidatypewriter-medium-*-*-*-12-*
+! (a monospace font), which looks better than Courier IMHO
+
+! To have this font appear in bold in the editor, in the
+! Editor/Works/Tools/Preferences.../Font dialog, I've selected
+! the "B&H Lucidatypewriter 12 Roman Bold" font, for all 
+! Editors windows
+
+! (the default Emacs-ish font boldness, medium, is too light for my eyes)
+
+! The font used for the menu bar is *helvetica-bold-r-*-*-12-*-iso8859-1
+! It appears in white on a SteelBlue background 
+! (I've always liked helvetica in menubars and menus)
+
+! Otherwise, the echo area background is Grey80, and messages appear
+! in Red2 in it.
+! This makes the interaction with the Lisp system stand out.
+
+! The only other notable thing is the use of a 'light beige' (#fdf8f3),
+! for editor and listener background, and of LightGray for the Output
+! area background (Yellow was a bit too strong on the eyes)
+
+! ======================================================================
+!
+! General Resources.
+!
+! ======================================================================
+
+! Default foreground/background.
+! The application class is specified here to try and defeat other color schemes
+!  (i.e. HP Vue, sgiMode, CDE).
+! By specifing the class here, all foreground and background resources that
+!  are intended to override these must have the application specified to take affect.
+Lispworks*foreground:					Black
+Lispworks*background:					#E0E0E0
+
+! For CDE and HP Vue.
+! Override the foreground and background of menu bar widget.
+Lispworks*menu-bar*foreground:				White
+Lispworks*menu-bar*background:				SteelBlue
+Lispworks*menu-bar*fontList:				*helvetica-bold-r-*-*-12-*-iso8859-1
+
+! Mnemonics are available via Mod1 when Mod1 is not the editor's Meta
+! key. Lines below, when uncommented, force the mnemonic regardless of the 
+! editor's Meta key (and hence may conflict with it)
+!Lispworks*menu-bar*menu-button-for-Works*mnemonic:	W
+!Lispworks*menu-bar*menu-button-for-File*mnemonic:	F
+!Lispworks*menu-bar*menu-button-for-Edit*mnemonic:	E
+!Lispworks*menu-bar*menu-button-for-Buffers*mnemonic:	B
+!Lispworks*menu-bar*menu-button-for-Expression*mnemonic:	x
+!Lispworks*menu-bar*menu-button-for-Values*mnemonic:	V
+!Lispworks*menu-bar*menu-button-for-Debug*mnemonic:	D
+!Lispworks*menu-bar*menu-button-for-History*mnemonic:	i
+!Lispworks*menu-bar*menu-button-for-Help*mnemonic:	H
+
+! Context (right mouse button) menu
+Lispworks*XmMenuShell*foreground:			Red2
+Lispworks*XmMenuShell*background:			Grey80
+Lispworks*XmMenuShell*fontList:				*helvetica-bold-r-*-*-12-*-iso8859-1
+
+Lispworks*useColorObj:					True
+
+! Switch off drag and drop as it could slow down the application
+Lispworks*dragInitiatorProtocolStyle:			XmDRAG_NONE
+Lispworks*dragReceiverProtocolStyle:			XmDRAG_NONE
+
+! ======================================================================
+!
+! Widget Specific Resources.
+!
+! ======================================================================
+
+! ----------------------------------------------------------------------
+! WMShell
+
+! The icon for all interfaces.
+Lispworks.TopLevelShell*iconPixmap:				lispworks.icon
+Lispworks.TopLevelShell*iconMask:				lispworks.icon.mask
+
+! ----------------------------------------------------------------------
+! XmScreen
+
+! The lightThreshold, darkThreshold, and foregroundThreshold resources
+!  are converted using a temporary top level widget.
+! Therefore, the resource specification for these must be of the form
+!
+!  *lightThreshold: <value>
+!
+!  in order to initialize the XmScreen properly (both the XmScreen
+!  resource and the converted value thru the temporary widget that
+!  is actually the one that is used).
+! If an application class specification is placed at the front of any of
+!  these resource specifications, they will not take affect.
+
+! The following makes shadow colors lighter than the background (as they did in 3.2).
+*lightThreshold:					95
+
+! ----------------------------------------------------------------------
+! XmBulletinBoard
+! For button panels, top level interfaces, dialogs, layouts.
+
+! XmText (display-pane, text-input-pane) derives its default fontList resource
+!  from the textFontList resource of the nearest XmBulletinBoard.
+! Buttons (menu cascade, push and toggle) derive their default fontList resource
+!  from the buttonFontList resource of the nearest XmBulletinBoard.
+! Labels (title-pane, dialog messages) derive their default fontList resource
+!  from the labelFontList resource of the nearest XmBulletinBoard.
+!
+! The application class is specified in order to defeat other default fontlist schemes.
+
+Lispworks*textFontList:			*courier-medium-r-normal--12-*-iso8859-1
+Lispworks*buttonFontList:		-adobe-helvetica-bold-r-normal--12-120-75-75-p-70-iso8859-1
+Lispworks*labelFontList:		-adobe-helvetica-bold-r-normal--12-120-75-75-p-70-iso8859-1
+
+
+! Don't add the Lispworks prefix so that this can be easily overridden.
+*work-region*fontList:			-b&h-lucidatypewriter-medium-*-*-*-12-*-iso8859-1
+
+! ----------------------------------------------------------------------
+! XmList
+! For list-panel and its subclasses.
+
+Lispworks*XmList.background:				#fdf8f3
+
+! The default doubleClickInterval for XmList is derived from XtGetMultiClickTime.
+! Set this only if you want list-panel and its subclasses to behave differently
+!  from other panes.
+!*XmList.doubleClickInterval:				200
+
+! list-panel-heading is the name of the buttons used as titles for titled
+! list-panels. Ensure the shadow thickness is small otherwise it looks like
+! a push-button-panel
+Lispworks*list-panel-heading.shadowThickness:           1
+
+Lispworks*XmList.FontList:		*courier-medium-r-normal--12-*-iso8859-1,\
+					*courier-bold-r-normal--12-*-iso8859-1=SEARCHABLE
+
+! Add a few Emacs-like translations.
+Lispworks*XmList.translations: #override\n\
+		Ctrl <Key>p: ListPrevItem()\n\
+		Ctrl <Key>n: ListNextItem()\n\
+		Ctrl <Key>v: ListNextPage()\n\
+		Meta <Key>v: ListPrevPage()\n\
+		Alt  <Key>v: ListPrevPage()\n\
+		Alt  <Key><: ListBeginData()\n\
+		Meta <Key><: ListBeginData()\n\
+		Alt  <Key>>: ListEndData()\n\
+		Meta <Key>>: ListEndData()
+
+! ----------------------------------------------------------------------
+! XmCascadeButton
+! For menu cascade buttons and option-pane.
+
+! ----------------------------------------------------------------------
+! XmLabel
+! For title-pane.
+
+Lispworks*XmLabel.fontList:		-adobe-helvetica-bold-r-normal--12-120-75-75-p-70-iso8859-1
+
+! ----------------------------------------------------------------------
+! XmPushButton
+! For menu items with no selection interaction style.
+Lispworks*XmPushButton.FontList:	-adobe-helvetica-bold-r-normal--12-120-75-75-p-70-iso8859-1
+
+! ----------------------------------------------------------------------
+! XmToggleButton
+! For menu items with single or multiple selection interaction style.
+
+! ----------------------------------------------------------------------
+! XmScrollBar
+! For scroll-bar.
+
+Lispworks*XmScrollBar.troughColor:			#a1cfe4
+
+! ----------------------------------------------------------------------
+! XmScale
+! For slider.
+
+! ----------------------------------------------------------------------
+! XmTextField
+! For message area of top level interface.
+
+! ----------------------------------------------------------------------
+! XmText
+! For display-pane, text-input-pane.
+
+Lispworks*XmText.background:				Grey90
+
+! Use baseTranslations so that users can override/augment.
+! Translations specified (e.g.) for per-host, or screen can override. 
+Lispworks*XmText.baseTranslations:	#override\n\
+	Ctrl <Key>b:		backward-character()\n\
+	Ctrl <Key>f:		forward-character()\n\
+	Alt <Key>b:		backward-word()\n\
+	Meta <Key>b:		backward-word()\n\
+	Alt <Key>f:		forward-word()\n\
+	Meta <Key>f:		forward-word()\n\
+	Ctrl <Key>a:		beginning-of-line()\n\
+	Ctrl <Key>e:		end-of-line()\n\
+	Alt <Key>[:		backward-paragraph()\n\
+	Meta <Key>[:		backward-paragraph()\n\
+	Alt <Key>]:		forward-paragraph()\n\
+	Meta <Key>]:		forward-paragraph()\n\
+	Alt <Key><:		beginning-of-file()\n\
+	Meta <Key><:		beginning-of-file()\n\
+	Alt <Key>>:		end-of-file()\n\
+	Meta <Key>>: 		end-of-file()\n\
+	Ctrl <Key>osfInsert:	copy-clipboard()\n\
+	Shift <Key>osfDelete:	cut-clipboard()\n\
+	Shift <Key>osfInsert:	paste-clipboard()\n\
+	Ctrl <Key>d:		kill-next-character()\n\
+	Alt <Key>BackSpace:	kill-previous-word()\n\
+	Meta <Key>BackSpace:	kill-previous-word()\n\
+	Alt <Key>d:		kill-next-word()\n\
+	Meta <Key>d:		kill-next-word()\n\
+	Alt <Key>Delete:	kill-to-start-of-line()\n\
+	Meta <Key>Delete:	kill-to-start-of-line()\n\
+	Ctrl <Key>k: 		kill-to-end-of-line()\n\
+	Ctrl <Key>w:		key-select() kill-selection()\n\
+	Alt <Key>w:		key-select() kill-selection() unkill()\n\
+	Meta <Key>w:		key-select() kill-selection() unkill()\n\
+	Ctrl <Key>y:		unkill()\n\
+	Ctrl <Key>o:		newline-and-backup()\n\
+	Ctrl <Key>j:		newline-and-indent()\n\
+	Ctrl <Key>p:		previous-line()\n\
+	Ctrl <Key>n:		next-line()\n\
+	Ctrl <Key>osfLeft:	page-left()\n\
+	Ctrl <Key>osfRight:	page-right()\n\
+	Ctrl <Key>osfUp:	previous-page()\n\
+	Alt <Key>v:		previous-page()\n\
+	Meta <Key>v:		previous-page()\n\
+	Ctrl <Key>osfDown:	next-page()\n\
+	Ctrl <Key>v:		next-page()\n\
+	Ctrl <Key>space:	set-anchor()\n\
+	Ctrl <Key>l:		redraw-display()\n\
+	Ctrl <Key>g:		process-cancel() beep()\n\
+        None<Key>Tab:		TextInputPaneCompleteText()
+
+! ======================================================================
+!
+! CAPI Classes.
+!
+! ======================================================================
+
+! Generally specified only where they differ from those specified
+!  for the widget class of the representation.
+
+! Widget names generally derive from the class name of the
+!  CAPI class they represent.
+
+! ----------------------------------------------------------------------
+! display-pane and subclasses
+
+Lispworks*display-pane.background:		LightGray
+
+!----------------------------------------------------------------------
+! text-input-pane and subclasses
+
+Lispworks*text-input-pane.background:		#fdf8f3
+
+! ----------------------------------------------------------------------
+! output-pane and subclasses
+
+Lispworks*editor-pane.background:		#fdf8f3
+
+! Note that, in LispWorks 5 and later, fonts for editor-pane do not have to be fixed width
+Lispworks*editor-pane.fontList:			-*-lucidatypewriter-bold-r-*-*-12-*-iso8859-1
+
+! ----------------------------------------------------------------------
+! Subclasses of editor-pane
+! Note that, in LispWorks 5 and later, fonts for these do not have to be fixed width
+
+Lispworks*collector-pane.background:		LightGray
+Lispworks*echo-area-pane.foreground:		Red2
+Lispworks*echo-area-pane.background:		Grey80
+Lispworks*echo-area-pane*fontList:		-*-lucidatypewriter-bold-r-*-*-12-*-iso8859-1
+Lispworks*mail-pane.background:			#fdf8f3
+
+! ----------------------------------------------------------------------
+! Subclasses of interactive-pane
+
+Lispworks*listener-pane.background:			#fdf8f3
+Lispworks*shell-pane.background:			#fdf3d9
+
+! ----------------------------------------------------------------------
+! Subclasses of simple-pinboard-layout
+
+Lispworks*graph-pane.background:			#fdf8f3
+Lispworks*tree-pane.background:				#fdf8f3
+Lispworks*simple-network-pane.background:		#fdf8f3
+
+! ----------------------------------------------------------------------
+! Layout dividers.
+Lispworks*column-layout-divider.backgroundPixmap:	gray
+Lispworks*row-layout-divider.backgroundPixmap:		gray
+
+! ----------------------------------------------------------------------
+! Tree view
+
+Lispworks*tree-view.background:				#fdf8f3
+Lispworks*extended-selection-tree-view.background:	#fdf8f3
+
+! ----------------------------------------------------------------------
+! List view
+
+Lispworks*list-view.background:				#fdf8f3
+
+! ----------------------------------------------------------------------
+! Tab layouts.
+
+Lispworks*tab-layout.fontList:				-b&h-lucidatypewriter-medium-*-*-*-12-*-iso8859-1
+! the highlight border around the tab layout
+Lispworks*tab-layout.highlightThickness:		2
+
+! ----------------------------------------------------------------------
+! separator 
+
+Lispworks*separator-pane.background:    	Grey70
+! ======================================================================
+!
+! Dialogs.
+!
+! ======================================================================
+
+! ----------------------------------------------------------------------
+! Screen confirmer dialogs.
+
+Lispworks*screen-confirmer*foreground:			White
+Lispworks*screen-confirmer*background:			SteelBlue
+Lispworks*screen-confirmer*fontList:			*helvetica-bold-r-*-*-12-*-iso8859-1
+
+
+
+! ----------------------------------------------------------------------
+! Screen message dialogs.
+! *screen-message ...
+
+! ======================================================================
+!
+! Other resources not related to CAPI classes.
+!
+! ======================================================================
+
+! For tooltips.
+Lispworks*tooltip.background:				#fdf8f3
+
+! ======================================================================
+!
+! Application resources.
+!
+! ======================================================================
+
+! The multi click delay time for all panes.
+! Xt defines the application resource multiClickTime to initialize the value
+!  returned by XtGetMultiClickTime.
+! *XmList.doubleClickInterval default is derived from this value.
+!*multiClickTime:					500
+
+! ----------------------------------------------------------------------
+!
+!  Visual and Color System Resources
+!
+! *.visualClass can be 'default', 'best' or an X11 visual class.
+!   - 'best' means try to get a best-rgb colormap via XGetRGBColormaps.
+!   - 'default' means use one of the same class as the screen default visual. If
+!      visualDepth is also not specified, use the screen default colormap.
+
+! *.usePrivateColormap can be 'never', 'always', 'if_installable'.
+!   - 'never' means that a private colormap is never used.  A non-default colormap
+!      may still be chosen though when using 'best' visualClass and a colormap for 
+!      'best' is already installed (it's likely to be shared in that case.)
+!   - 'if_installable' means if the screen can support a new colormap to be
+!       simultaneously installed with the default.
+
+! *.maxDefaultColormapColors is the number of colors Lispworks will allocate for
+!   its own use in the default colormap before taking the colorAllocationErrorAction.
+!   If colorAllocationErrorAction is 'nearest', nearest colors will be used quietly.
+
+*.visualClass:					default
+!*.visualDepth:						8
+!*.usePrivateColormap:					never
+*.maxDefaultColormapColors:			50               
+*.colorAllocationErrorAction:			nearest
+
+
+!  These are the relative red green and blue weights used when finding nearest 
+!  colors in the colormap by their relative RGB distance from the desired color.  
+!  The units are arbitrary.
+
+*.nearestColorRedWeight:			1.0
+*.nearestColorGreenWeight:			1.0
+*.nearestColorBlueWeight:			0.5
+
+
+! Blink rate of the cursor in editor panes in milliseconds.
+
+*.cursorBlinkRate:				500 
+
+
+
+! Setting the default background and foreground highlight colors
+! explicitly. The colorHighlight resource matches the pseudo-color
+! :COLOR_HIGHLIGHT, and the colorHighlightText resource matches the
+! pseudo-color :COLOR_HIGHLIGHTTEXT.  These pseudo-colors are used as
+! the default for highlighting.
+
+! *listener-pane.colorHighlight:                         #5050c0
+! *listener-pane.colorHighlightText:                     #c8a845
+
+! *editor-pane.colorHighlight:                           #704060
+! *editor-pane.colorHighlightText:                       #a8e845
+
+
+! *echo-area-pane.colorHighlight:                        #406060
+! *echo-area-pane.colorHighlightText:                    #d81845
+
+! *shell-pane.colorHighlight:                            #408060
+! *shell-pane.colorHighlightText:                        #a818c5
+
+! *class-browser*graph-pane.colorHighlight:              #406060
+! *class-browser*graph-pane-pane.colorHighlightText:     #d888c5
+
+
+! *debugger*tree-view.colorHighlight:                    #300000

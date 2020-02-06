@@ -1,0 +1,23 @@
+%%BeginResource: procset Harlequin_LispWorks_GetFDH 1.0 1
+%%Copyright: Copyright (c) 1987--2012 LispWorks Ltd. All rights reserved.
+%Fallback code used when AFM data is missing; relied on FontBBox
+%GetFDH (get font descent height)   - | descent height
+/GetFDH {GetFDA 1 index sub} def
+%GetFDA (get font descent ascent)   - | descent ascent
+/GetFDA {currentfont dup /FontType get 0 eq
+          {GetCompFDA} {GetBaseFDA} 
+         ifelse} def
+%GetBaseFDA (base font)   font | descent ascent
+/GetBaseFDA {dup /FontMatrix get 3 get exch /FontBBox get 
+             dup 3 get exch 1 get
+             %yscale ytop ybottom
+             2 index mul 3 1 roll mul} def
+%GetCompFDA (composite font)   font | descent ascent
+%Get the smallest descent and largest ascent of any descendent font
+/GetCompFDA {0 0 3 2 roll /FDepVector get
+             {GetFDA
+              %d1 a1 d2 a2
+              3 2 roll max
+	      %d1 d2 a
+              3 1 roll min exch} forall} def
+%EndResource

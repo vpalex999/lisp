@@ -1,0 +1,43 @@
+%%BeginResource: procset Harlequin_Lispworks_Query 1.0 1
+%%Copyright: Copyright (c) 1987--2012 LispWorks Ltd. All rights reserved.
+%Assume imageable area of [36 36 559 756]
+/Font (Courier) def
+/PointSize 12 def
+/Skip PointSize 1.2 mul def
+/DoSkip {0 Skip neg rmoveto} def
+/Column2 290 def
+/String 256 string def
+50 dict dup /QueryDict exch def
+/= {ResultDict exch get show} put
+Font findfont PointSize scalefont setfont
+36 756 PointSize sub moveto
+%Info    string proc | -
+/Info {exch gsave show (:) show grestore
+       stopped {(Unknown)} {String cvs} ifelse
+       gsave Column2 0 rmoveto show grestore
+       DoSkip} def
+%Query   string dict proc | -
+/Query {exch /ResultDict exch def
+        exch gsave show (:) show grestore
+        save Column2 0 rmoveto 
+	mark 3 2 roll QueryDict begin stopped end
+        {(Unknown) show} if
+        cleartomark restore DoSkip} def
+/Header {
+  statusdict begin
+  (Model) {product} Info
+  (Version) {revision} Info
+  (Serial No) {serialnumber} Info
+  end
+  DoSkip
+} def
+/CheckProduct {dup statusdict begin product end ne
+               {gsave /Times-Italic findfont 10 scalefont setfont
+                gsave (Warning:  An incorrect printer type \() show
+	        show
+                (\) has been selected.) show grestore DoSkip
+                gsave (The information below may not be accurate.) show 
+                grestore grestore DoSkip DoSkip DoSkip} 
+	       {pop gsave (The selected printer type is correct.) show
+                grestore DoSkip DoSkip} ifelse} def
+%%EndResource

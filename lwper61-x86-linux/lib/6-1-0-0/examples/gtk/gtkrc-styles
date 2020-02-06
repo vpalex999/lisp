@@ -1,0 +1,131 @@
+### -*- rcs-header: "$Header: /hope/lwhope1-cam/hope.0/compound/23/LISPexamples/RCS/gtk:gtkrc-styles,v 1.1.2.1 2011/08/24 13:26:18 davef Exp $" -*-
+
+### #<harlequin copyright marker>
+
+### For available colors, see the standard rgb.txt file, which is
+### often in /usr/lib/X11/rgb.txt
+
+### The names of all LispWorks IDE interfaces are prefixed by
+### "Lispworks.". By prefixing all the paths by Lispworks., these
+### declarations ensure that they match widgets only inside the
+### Lispworks IDE.
+
+### This should work on GTK 2.10
+### color["LispWorksVeryLightBlue"] = "#d8e0ff"
+### color["LispWorksVeryLightPurple"] = "#d0d0f0"
+### color["LispWorksLightPink"] = "#e8e0e0"
+
+### Plain editor-pane
+
+style "Lispworks-Editor-Pane-Style" { base[NORMAL] = "#e8ffff"
+	                              text[NORMAL] = "black"
+ 				      bg_pixmap[NORMAL] = "<none>"
+                                    }
+widget "Lispworks.*.editor-pane" style "Lispworks-Editor-Pane-Style"
+
+### Echo area
+
+style "Lispworks-Echo-Area-Pane-Style" = "Lispworks-Editor-Pane-Style"
+                 { base[NORMAL] = "#d0d0f0"  ## LispWorksVeryLightPurple
+                 }
+widget "Lispworks.*.echo-area-pane" style "Lispworks-Echo-Area-Pane-Style"
+
+### Listener
+
+style "Lispworks-Listener-Style" = "Lispworks-Editor-Pane-Style"
+                 { base[NORMAL] = "LightGoldenrodYellow"
+                 }
+widget "Lispworks.*.listener-pane" style "Lispworks-Listener-Style"
+
+### Shell
+
+style "Lispworks-Shell-Pane-Style" = "Lispworks-Editor-Pane-Style"
+                 { base[NORMAL] = "#d8e0ff"   ##LispWorksVeryLightBlue
+                 }
+widget "Lispworks.*.shell-pane" style "Lispworks-Shell-Pane-Style"
+
+### Collector pane
+
+style "Lispworks-Collector-Pane-Style" = "Lispworks-Editor-Pane-Style"
+		{ base[NORMAL] = "#e8e0e0"    ##LispWorksLightPink
+		  text[NORMAL] = "NavyBlue"
+		}
+widget "Lispworks.*.collector-pane" style "Lispworks-Collector-Pane-Style"
+
+
+
+### This shows how to specialize the a pane inside a specific
+### IDE interface to different background from panes of the same class
+### in other interfaces. This changes the background
+### of the collector-pane in the Listener (which is visible when the
+### "Output" tab is selected). Compare to the color of the "Output"
+### tab in the editor, which matches the style Lispworks-Collector-Pane-Style
+### above.
+### This also demonstrates that * can match part of a component.
+
+style "Lispworks-Listener-Collector-Pane-Style" = "Lispworks-Editor-Pane-Style" { base[NORMAL] = "light yellow" }
+widget "Lispworks.list*.collector-pane" style "Lispworks-Listener-Collector-Pane-Style"
+
+
+
+### An example of using a different value for a different application.
+### Inside LispWorks, you can see an editor-pane with
+### a lightgreen background and navy text by doing:
+### (capi:contain (make-instance 'capi:editor-pane) :screen '(:application-class "My-application"))
+### The :application-class string is prefixed to the default widget-name of each
+### top level interface in the screen, and hence matches the path below.
+### If you want to easiy specialize resources for your application,
+### you should pass the :SCREEN keyword to CAPI:DISPLAY with your own
+### application-class.
+
+
+style "xx-Editor-Pane-Style" { base[NORMAL] = "lightgreen"
+	                              text[NORMAL] = "navy"
+ 				      bg_pixmap[NORMAL] = "<none>"
+                                    }
+widget "My-application.*.editor-pane" style "xx-Editor-Pane-Style"
+
+
+
+### Setting the color for the text in the labels of 
+### a tab-layout. "tab-label" is the name that LispWorks gives
+### to the labels. 
+
+style "Lispworks-Tab-Layout" {
+         fg[NORMAL] = "blue"
+  	 fg[ACTIVE] = "black"
+	} 
+widget "Lispworks.*.tab-label" style "Lispworks-Tab-Layout" 
+
+
+
+### Binding Left and Right in tree-view: 
+
+### The first argument of expand-collapse-cursor-row ("logical") tells
+### it whether to take the reverse operation if the pane is set to
+### Right-To-Left. 
+### The second argument ("expand") is whether to expand or collapse.
+### The third argument ("open-all") is whether to expand recursively or not. 
+### GTK internally binds Right and Left to "move-cursor",
+### and expand/collapse are done by + and -. Shift-Right and Shift-Left
+### are bound to expand all and collapse. 
+
+### These bindings Make Right and Left expand and collapse (like + and
+### - in the default bindings), and Control+Left go up the tree and
+### then collapse. It matches better what LispWorks does on other
+### platforms, though not exactly.
+
+### Documentation for signals such as "expand-collapse-cursor-row" is
+### in the GTK documentation
+
+### we need the '*' before tree-view below because CAPI has both
+### TREE-VIEW and EXTENDED-SELECTION-TREE-VIEW, and we want to match
+### both of them.
+
+binding "Lispworks-Tree-View-Keys" {
+   bind "Right" { "expand-collapse-cursor-row"(0,1,0) }
+   bind "Left"  { "expand-collapse-cursor-row"(0,0,0) }
+   bind "<ctrl>Left" { "select-cursor-parent" ()
+                      "expand-collapse-cursor-row"(0,0,0) }
+}
+widget "Lispworks.*.*tree-view" binding "Lispworks-Tree-View-Keys"

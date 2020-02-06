@@ -1,0 +1,45 @@
+### -*- rcs-header: "$Header: /hope/lwhope1-cam/hope.0/compound/23/LISPexamples/RCS/gtk:gtkrc-parameters,v 1.2.1.1 2011/08/24 13:26:18 davef Exp $" -*-
+
+### #<harlequin copyright marker>
+
+### An example of defining configuration parameters for a
+### LispWorks application using resource files.
+
+### The string after 'binding' is the binding name. It should 
+### be unique to avoid clashing with other binding names. To
+### find the bindings from inside LispWorks, you pass the
+### binding name to cg-lib:list-bindings-entries:
+###   (capi-gtk-library:LIST-BINDINGS-ENTRIES "My-Application-Attributes")
+
+### (if you want to see the binding from this file, you need to add
+###  it to the resource files by capi-gtk-library:ADD-APPLICATION-RESOURCE-FILE)
+
+### The string after each 'bind' specifies a character (in GTK syntax).
+### When used for parameters you should always use a single character. 
+
+### the "Attribute*" strings are 'signal names', but 
+### are completely arbitrary, because the binding is not attached
+### to any widget. 
+
+### The arguments (in round parenthesis) can be string, double, or long.
+
+### In the result of capi-gtk-library:LIST-BINDINGS-ENTRIES, each 'bind' form
+### comes out a list. The car is the character specified after 'bind'. The rest
+### are lements correspond to each "signal", where the caris the signal name 
+### and the rest are  the arguments:
+
+### ((#\b ("Attribute4" 200))
+###  (#\a ("Attribute1" 1 "hh") 
+###       ("Attribute2" 3.5D0) 
+###       ("Attribute3" 3.5D0 78)))
+
+
+binding "My-Application-Attributes" {
+   bind "a" { "Attribute1"(1, "hh")
+              "Attribute2"(3.5)
+              "Attribute3"(3.5, 78)
+            }
+
+   bind "b" { "Attribute4"(200)
+            }
+}

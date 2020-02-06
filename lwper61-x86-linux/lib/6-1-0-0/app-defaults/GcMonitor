@@ -1,0 +1,38 @@
+! -*- rcs-header: "$Header: /hope/lwhope1-cam/hope.0/compound/62/LISPcapi-xm-lib-app-defaults/RCS/GcMonitor,v 1.4.8.1 2011/08/24 13:25:48 davef Exp $" -*-
+
+! Copyright (c) 1987--2012 LispWorks Ltd. All rights reserved.
+
+! ----------------------------------------------------------------------
+!
+! Resource description for Lispworks GC Monitor.
+!
+! ----------------------------------------------------------------------
+
+! As of LispWorks 5 the fonts and colors are those contributed by:
+! Author: Stéphane Perrot, 2004-2005 <stephane DOT perrot AT c-s DOT fr>
+! The LispWorks 4 fonts and colors are available in GcMonitor-classic.
+
+*background:						White
+
+*XmPushButton*background:				SteelBlue
+*XmPushButton*foreground:				White
+*XmPushButton.fontList:					-adobe-helvetica-bold-r-normal--12-120-75-75-p-70-iso8859-1
+
+*status.background:					Grey80
+*status.foreground:					Red2
+*status.fontList:					-*-lucidatypewriter-bold-*-*-*-12-*
+
+
+! Buttons and the status area can be configured with the following names:
+!
+! Pushbutton:
+!   break
+!   interrupt
+!   quit
+!
+! Label:
+!   status
+
+
+
+

@@ -1,0 +1,235 @@
+*PPD-Adobe: "4.3"
+*% Copyright (c) 1987--2012 LispWorks Ltd. All rights reserved.
+*Manufacturer: "Generic"
+*ModelName: "Generic PostScript Printer"
+*ShortNickName: "Generic PostScript Printer"
+*NickName: "Generic PostScript Printer"
+*PCFileName: "GENERIC.PPD"
+*FileVersion: "1.0"
+*FormatVersion: "4.3"
+*LanguageEncoding: ISOLatin1
+*LanguageVersion: English
+
+*OpenUI *PageSize/Page Size: PickOne
+*DefaultPageSize: Unknown
+*OrderDependency: 10 AnySetup *PageSize
+*PageSize A4/A4: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [595 842] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{statusdict a4tray get exec} stopped
+ {{a4} stopped
+  {{595 842 0 1 statusdict /setpageparams get exec} stopped pop}
+  if}
+ if
+}
+ifelse"
+*End
+*PageSize A3/A3: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [841 1191] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{statusdict a3tray get exec} stopped
+ {{a3} stopped
+  {{841 1191 0 1 statusdict /setpageparams get exec} stopped pop}
+  if}
+ if
+}
+ifelse"
+*End
+*PageSize A2/A2: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [1190 1684] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{statusdict a2tray get exec} stopped
+ {{a2} stopped
+  {{1190 1684 0 1 statusdict /setpageparams get exec} stopped pop}
+  if}
+ if
+}
+ifelse"
+*End
+*PageSize A1/A1: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [1683 2382] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{statusdict a1tray get exec} stopped
+ {{a1} stopped
+  {{1683 2382 0 1 statusdict /setpageparams get exec} stopped pop}
+  if}
+ if
+}
+ifelse"
+*End
+*PageSize A0/A0: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [2380 3368] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{statusdict a0tray get exec} stopped
+ {{a0} stopped
+  {{2380 3368 0 1 statusdict /setpageparams get exec} stopped pop}
+  if}
+ if
+}
+ifelse"
+*End
+*PageSize Letter/US Letter: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [612 792] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{statusdict lettertray get exec} stopped
+ {{letter} stopped
+  {{612 792 0 1 statusdict /setpageparams get exec} stopped pop}
+  if}
+ if
+}
+ifelse"
+*End
+*PageSize Legal/US Legal: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [612 1008] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{statusdict legaltray get exec} stopped
+ {{legal} stopped
+  {{612 1008 0 1 statusdict /setpageparams get exec} stopped pop}
+  if}
+ if
+}
+ifelse"
+*End
+*CloseUI: *PageSize
+*OpenUI *PageRegion/PageRegion: PickOne
+*DefaultPageRegion: Unknown
+*OrderDependency: 10 AnySetup *PageRegion
+*PageRegion A4/A4: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [595 842] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{a4} stopped
+ {{595 842 0 1 statusdict /setpageparams get exec} stopped pop}
+ if
+}
+ifelse"
+*End
+*PageRegion A3/A3: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [841 1191] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{a3} stopped
+ {{841 1191 0 1 statusdict /setpageparams get exec} stopped pop}
+ if
+}
+ifelse"
+*End
+*PageRegion A2/A2: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [1190 1684] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{a2} stopped
+ {{1190 1684 0 1 statusdict /setpageparams get exec} stopped pop}
+ if
+}
+ifelse"
+*End
+*PageRegion A1/A1: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [1683 2382] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{a1} stopped
+ {{1683 2382 0 1 statusdict /setpageparams get exec} stopped pop}
+ if
+}
+ifelse"
+*End
+*PageRegion A0/A0: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [2380 3368] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{a0} stopped
+ {{2380 3368 0 1 statusdict /setpageparams get exec} stopped pop}
+ if
+}
+ifelse"
+*End
+*PageRegion Letter/US Letter: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [612 792] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{letter} stopped
+ {{612 792 0 1 statusdict /setpageparams get exec} stopped pop}
+ if
+}
+ifelse"
+*End
+*PageRegion Legal/US Legal: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /PageSize [612 1008] /ImagingBBox null (>>) cvx exec setpagedevice}
+%%Not level 2
+{{legal} stopped
+ {{612 1008 0 1 statusdict /setpageparams get exec} stopped pop}
+ if
+}
+ifelse"
+*End
+*CloseUI: *PageRegion
+*OpenUI *ManualFeed/Manual Feed: Boolean
+*DefaultManualFeed: False
+*OrderDependency: 20 AnySetup *ManualFeed
+*ManualFeed False: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /ManualFeed false (>>) cvx exec setpagedevice}
+%%Not level 2
+{{statusdict /manualfeed known
+  {statusdict /manualfeed false put} if
+ } stopped pop
+}
+ifelse"
+*End
+*OpenUI *InputSlot/Paper Source: PickOne
+*DefaultInputSlot: Cassette
+*InputSlot Cassette/Paper Tray: ""
+*CloseUI: *InputSlot
+*ManualFeed True: "
+/languagelevel where {pop languagelevel 2 ge} {false} ifelse
+%%Level 2
+{mark /ManualFeed true (>>) cvx exec setpagedevice}
+%%Not level 2
+{{statusdict /manualfeed known
+  {statusdict /manualfeed true put} if
+ } stopped pop
+}
+ifelse"
+*End
+*CloseUI: *ManualFeed
+*DefaultPaperDimension: Unknown
+*PaperDimension A4/A4: "595 842"
+*PaperDimension A3/A3: "841 1191"
+*PaperDimension A2/A2: "1190 1684"
+*PaperDimension A1/A1: "1683 2382"
+*PaperDimension A0/A0: "2380 3368"
+*PaperDimension Letter/US Letter: "612 792"
+*PaperDimension Legal/US Legal: "612 1008"
+*DefaultImageableArea: Unknown
+*ImageableArea A4/A4: "36 36 559 806"
+*ImageableArea A3/A3: "36 36 805 1155"
+*ImageableArea A2/A2: "36 36 1154 1648"
+*ImageableArea A1/A1: "36 36 1647 2346"
+*ImageableArea A0/A0: "36 36 2344 3332"
+*ImageableArea Letter/US Letter: "36 36 576 756"
+*ImageableArea Legal/US Legal: "36 36 576 972"
+
