@@ -6,18 +6,18 @@
 не используйте функцию list.
 
 тест:
-f1 1 2 3
+list3 1 2 3
 (1 2 3)
 
-f1 1 `a 2
+list3 1 `a 2
 (1 A 2)
 
-f1 `(1 2) `a 3
+list3 `(1 2) `a 3
 ((1 2) A 3)
 
 |#
 
-(defun f1(x y z)
+(defun list3(x y z)
     (cons x (cons y (cons z nil)))
 )
 
