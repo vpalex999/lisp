@@ -19,6 +19,38 @@ f1 `(1 2 3)
 |#
 
 
+(defun f1(s)
+    (let ((last_el (get_last_el s)))
+        (cond
+            ((null s) nil)
+            ((eq (rest s) nil) s)
+            (t (cons last_el (replace_last_el (first s) (rest s))))
+        )
+    )
+)
+
+; заменить последний элемент списка -> el.
+#|
+replace_last_el `1 `()
+(1)
+
+replace_last_el `1 `(2)
+(1)
+
+replace_last_el `1 (2 3)
+(2 1)
+
+|#
+
+(defun replace_last_el(el s)
+    (cond
+        ((null s) (cons el nil))
+        ((null (rest s)) (cons el nil))
+        (t (cons (first s) (replace_last_el el (rest s))))
+    )
+)
+
+
 ; получить последний эл-т списка.
 #|
 get_last_el `()
