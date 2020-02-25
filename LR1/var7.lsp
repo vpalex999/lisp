@@ -19,6 +19,28 @@ f1 `(1 2 3)
 |#
 
 
+; получить последний эл-т списка.
+#|
+get_last_el `()
+NIL
+
+get_last_el `(1)
+1
+
+get_last_el `(1 2)
+2
+
+|#
+
+
+(defun get_last_el(s)
+    (cond 
+        ((null s) nil)
+        ((eq (rest s) nil) (first s))
+        (t (get_last_el (rest s)))
+    )
+)
+
 
 #|
 2. Определите функцию (summa_digits n), результатом которой является сум-
