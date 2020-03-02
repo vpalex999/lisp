@@ -1,0 +1,53 @@
+
+Методичиское пособие: Функ-ное программ-ние_УП.pdf (В.М. Зюзьков)
+
+7 ФУНКЦИИ ВЫСОКОГО ПОРЯДКА.Применяющие функционалы.APPLY
+
+при повторенни примеров использования функции apply (стр.116), funcall (стр.117)
+возникли затрудения с вызовом функций: eval и lambda.
+
+интерпретатор (lispworks) выдает следующие ошибки:
+
+CL-USER 1 > (apply 'eval '(+ 2 3))
+
+Error: The call (#<Function EVAL 203236F2> + 2 3) does not match definition (#<Function EVAL 203236F2> EXP).
+  1 (continue) Return a value from the call to #<Function EVAL 203236F2>.
+  2 Try calling #<Function EVAL 203236F2> again.
+  3 Try calling another function instead of #<Function EVAL 203236F2> with the same arguments.
+  4 Try calling #<Function EVAL 203236F2> with a new argument list.
+  5 (abort) Return to level 0.
+  6 Return to top loop level 0.
+
+Type :b for backtrace or :c <option number> to proceed.
+Type :bug-form "<subject>" for a bug report template or :? for other options.
+
+
+но, если аргумент для eval дополнительно обернуть списком:
+CL-USER 2 : 1 > (apply ‘eval ‘((+ 2 3)))
+5
+
+то функция вызывается. В чем проблема? в версии интерпретатора или что то ещё?
+
+
+CL-USER 1 > (apply ‘(lambda (x y) (+ x y)) ‘(2 3))
+
+Error: Argument to apply/funcall is not a function: (LAMBDA (X Y) (+ X Y)).
+  1 (continue) Try calling a different function instead of (LAMBDA (X Y) (+ X Y)) with the same arguments.
+  2 (abort) Return to level 0.
+  3 Return to top loop level 0.
+
+Type :b for backtrace or :c <option number> to proceed.
+Type :bug-form "<subject>" for a bug report template or :? for other options.
+
+
+CL-USER 2 > (funcall `(lambda (x y)(+ x y)) 2 3)
+
+Error: Argument to apply/funcall is not a function: (LAMBDA (X Y) (+ X Y)).
+  1 (continue) Try calling a different function instead of (LAMBDA (X Y) (+ X Y)) with the same arguments.
+  2 (abort) Return to level 0.
+  3 Return to top loop level 0.
+
+Type :b for backtrace or :c <option number> to proceed.
+Type :bug-form "<subject>" for a bug report template or :? for other options.
+
+ - здесь мне не понятно, почему lambda - не функция?
