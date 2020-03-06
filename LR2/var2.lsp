@@ -119,15 +119,18 @@ f3 '((a))
 f3 '((a) (b) (c) d)
 (a b c d)
 
+f3 '(a (b (c (d)) e) f)
+(a b c d e f)
+
 |#
 
 (defun f3 (s)
     (cond
      ; пустой список - граничное значение, конец цикла
      ((null s) nil)
-     ; если первый эл-т -список, то объединяем список с хвостом
-     ((listp (first s)) (funcall (lambda (x) (append (union (first s) nil) x)) (f4 (rest s))))
+     ; если первый эл-т -список, то рекурсивно обрабатываем элемент-список и объединяем его с хвостом
+     ((listp (first s)) (funcall (lambda (x) (append (union (f3 (first s)) nil) x)) (f3 (rest s))))
      ; иначе, преобразуем первый эт-т в список и объединяем его с хвостом
-     (t (funcall (lambda (x) (append (union (list (first s)) nil) x)) (f4 (rest s))))
+     (t (funcall (lambda (x) (append (union (list (first s)) nil) x)) (f3 (rest s))))
     )
 )
