@@ -1,2 +1,5 @@
-(defun g (x) (atom (car x)))
-(defun f (s) (> (cadr s) (cadddr s)))
+(defun many (f x)
+    (mapcar (function (lambda (g) (funcall g x))) f)
+)
+(defun f1 (x) (+ x x))
+(defun f2 (x) (* x x))
